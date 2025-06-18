@@ -1,20 +1,18 @@
+console.log("📦 next.config.js loaded");
+
 const { withSentryConfig } = require("@sentry/nextjs");
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
-
-const nextConfig = {
-  output: "export",
-  basePath: "/jsoncrack",
-  assetPrefix: "/jsoncrack/",
-  trailingSlash: true,
-};
 
 /**
  * @type {import('next').NextConfig}
  */
 const config = {
   output: "export",
+  basePath: "/jsoncrack",
+  assetPrefix: "/jsoncrack/",
+  trailingSlash: true,
   reactStrictMode: false,
   productionBrowserSourceMaps: true,
   compiler: {
@@ -34,7 +32,9 @@ const config = {
 };
 
 const configExport = () => {
-  if (process.env.ANALYZE === "true") return withBundleAnalyzer(config);
+  if (process.env.ANALYZE === "true") {
+    return withBundleAnalyzer(config);
+  }
 
   if (process.env.GITHUB_REPOSITORY === "AykutSarac/jsoncrack.com") {
     return withSentryConfig(
