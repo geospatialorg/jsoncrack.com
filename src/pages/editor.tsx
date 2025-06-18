@@ -7,7 +7,6 @@ import styled, { ThemeProvider } from "styled-components";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Allotment } from "allotment";
 import "allotment/dist/style.css";
-// import Cookie from "js-cookie";
 import { NextSeo } from "next-seo";
 import { SEO } from "../constants/seo";
 import { darkTheme, lightTheme } from "../constants/theme";
@@ -72,7 +71,28 @@ const EditorPage = () => {
   const fullscreen = useGraph(state => state.fullscreen);
 
   useEffect(() => {
-    if (isReady) checkEditorSession(query?.json);
+    if (isReady) {
+      // verifică existența sesiunii anterioare
+      checkEditorSession(query?.json);
+
+      // dacă avem parametru ?json=..., îl încărcăm explicit
+      if (query?.json && typeof query.json === "string") {
+        console.log("Am detectat URL JSON extern:", query.json);
+        fetch(query.json)
+          .then(res => res.json())
+          .then(data => {
+            const { setFile } = require("../store/useFile").default.getState();
+            setFile({
+              name: "imported.json",
+              content: JSON.stringify(data, null, 2),
+              type: "application/json",
+            });
+          })
+          .catch(error => {
+            console.error("Eroare la încărcarea fișierului JSON din URL:", error);
+          });
+      }
+    }
   }, [checkEditorSession, isReady, query]);
 
   useEffect(() => {
