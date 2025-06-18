@@ -73,6 +73,7 @@ const EditorPage = () => {
           .then(res => res.json())
           .then(data => {
             const now = new Date().toISOString();
+            // @ts-expect-error
             setFile({
               id: "imported",
               name: "imported.json",
