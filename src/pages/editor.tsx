@@ -73,7 +73,7 @@ const EditorPage = () => {
           .then(res => res.json())
           .then(data => {
             const now = new Date().toISOString();
-            // @ts-expect-error
+            // @ts-expect-error: tipul `File` nu acceptă acest set de câmpuri în mod explicit
             setFile({
               id: "imported",
               name: "imported.json",
