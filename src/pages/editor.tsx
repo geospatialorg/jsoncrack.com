@@ -116,14 +116,6 @@ const EditorPage = () => {
               {/* <Toolbar /> */}
               <StyledEditorWrapper>
                 <StyledEditor proportionalLayout={false}>
-                  <Allotment.Pane
-                    preferredSize={450}
-                    minSize={fullscreen ? 0 : 300}
-                    maxSize={800}
-                    visible={!fullscreen}
-                  >
-                    <TextEditor />
-                  </Allotment.Pane>
                   <Allotment.Pane minSize={0}>
                     <LiveEditor />
                   </Allotment.Pane>
@@ -131,7 +123,7 @@ const EditorPage = () => {
                 <FullscreenDropzone />
               </StyledEditorWrapper>
             </StyledPageWrapper>
-            <BottomBar />
+            {/* <BottomBar /> */}
           </StyledEditorWrapper>
         </QueryClientProvider>
       </ThemeProvider>
