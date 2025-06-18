@@ -80,7 +80,6 @@ const EditorPage = () => {
               views: 0,
               owner_email: "local@jsoncrack.dev",
               private: false,
-              saved: false,
               readonly: true,
               created_at: now,
               updated_at: now,
