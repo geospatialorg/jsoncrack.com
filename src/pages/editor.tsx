@@ -16,8 +16,6 @@ import useConfig from "../store/useConfig";
 import useFile from "../store/useFile";
 import useFileStore from "../store/useFile";
 
-// ✔️ import corect pt setFile
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -74,9 +72,18 @@ const EditorPage = () => {
         fetch(query.json)
           .then(res => res.json())
           .then(data => {
+            const now = new Date().toISOString();
             setFile({
+              id: "imported",
               name: "imported.json",
               content: JSON.stringify(data, null, 2),
+              views: 0,
+              owner_email: "local@jsoncrack.dev",
+              private: false,
+              saved: false,
+              readonly: true,
+              created_at: now,
+              updated_at: now,
             });
           })
           .catch(error => {
