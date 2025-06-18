@@ -90,7 +90,7 @@ const EditorPage = () => {
             console.error("Eroare la încărcarea fișierului JSON din URL:", error);
           });
       } else {
-        checkEditorSession();
+        checkEditorSession(query?.json);
       }
     }
   }, [checkEditorSession, isReady, query, setFile]);
