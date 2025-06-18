@@ -10,15 +10,15 @@ import "allotment/dist/style.css";
 import { NextSeo } from "next-seo";
 import { SEO } from "../constants/seo";
 import { darkTheme, lightTheme } from "../constants/theme";
-import { BottomBar } from "../features/editor/BottomBar";
+//import { BottomBar } from "../features/editor/BottomBar";
 import { FullscreenDropzone } from "../features/editor/FullscreenDropzone";
-import { Toolbar } from "../features/editor/Toolbar";
+//import { Toolbar } from "../features/editor/Toolbar";
 import useGraph from "../features/editor/views/GraphView/stores/useGraph";
 import useConfig from "../store/useConfig";
 import useFile from "../store/useFile";
 
 const ModalController = dynamic(() => import("../features/modals/ModalController"));
-const ExternalMode = dynamic(() => import("../features/editor/ExternalMode"));
+//const ExternalMode = dynamic(() => import("../features/editor/ExternalMode"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -55,20 +55,22 @@ export const StyledEditor = styled(Allotment)`
   }
 `;
 
-const TextEditor = dynamic(() => import("../features/editor/TextEditor"), {
-  ssr: false,
-});
+//const TextEditor = dynamic(() => import("../features/editor/TextEditor"), {
+//  ssr: false,
+//});
 
 const LiveEditor = dynamic(() => import("../features/editor/LiveEditor"), {
   ssr: false,
 });
 
 const EditorPage = () => {
-  const { query, isReady } = useRouter();
+  const router = useRouter();
+  const isReady = router.isReady;
+  const query = router.query;
   const { setColorScheme } = useMantineColorScheme();
   const checkEditorSession = useFile(state => state.checkEditorSession);
   const darkmodeEnabled = useConfig(state => state.darkmodeEnabled);
-  const fullscreen = useGraph(state => state.fullscreen);
+  //const fullscreen = useGraph(state => state.fullscreen);
 
   useEffect(() => {
     if (isReady) {
