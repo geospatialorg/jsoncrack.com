@@ -13,8 +13,9 @@ import { darkTheme, lightTheme } from "../constants/theme";
 import { FullscreenDropzone } from "../features/editor/FullscreenDropzone";
 import ModalController from "../features/modals/ModalController";
 import useConfig from "../store/useConfig";
-import useFile from "../store/useFile";
 import useFileStore from "../store/useFile";
+
+// corect
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -60,31 +61,30 @@ const EditorPage = () => {
   const isReady = router.isReady;
   const query = router.query;
   const { setColorScheme } = useMantineColorScheme();
-  const checkEditorSession = useFile(state => state.checkEditorSession);
+  const checkEditorSession = useFileStore(state => state.checkEditorSession);
+  const setFile = useFileStore.getState().setFile;
   const darkmodeEnabled = useConfig(state => state.darkmodeEnabled);
 
   useEffect(() => {
     if (isReady) {
       if (query?.json && typeof query.json === "string") {
         console.log("Am detectat URL JSON extern:", query.json);
-        const setFile = useFileStore.getState().setFile;
 
         fetch(query.json)
           .then(res => res.json())
           .then(data => {
             const now = new Date().toISOString();
-            // @ts-expect-error: tipul `File` nu acceptă acest set de câmpuri în mod explicit
-            setFile({
+            const file = {
               id: "imported",
               name: "imported.json",
               content: JSON.stringify(data, null, 2),
               views: 0,
               owner_email: "local@jsoncrack.dev",
               private: false,
-              readonly: true,
               created_at: now,
               updated_at: now,
-            });
+            };
+            setFile(file as any); // forțăm acceptarea structurii personalizate
           })
           .catch(error => {
             console.error("Eroare la încărcarea fișierului JSON din URL:", error);
@@ -93,7 +93,7 @@ const EditorPage = () => {
         checkEditorSession();
       }
     }
-  }, [checkEditorSession, isReady, query]);
+  }, [checkEditorSession, isReady, query, setFile]);
 
   useEffect(() => {
     setColorScheme(darkmodeEnabled ? "dark" : "light");
