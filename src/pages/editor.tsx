@@ -113,7 +113,7 @@ const EditorPage = () => {
           <ModalController />
           <StyledEditorWrapper>
             <StyledPageWrapper>
-              <Toolbar />
+              {/* <Toolbar /> */}
               <StyledEditorWrapper>
                 <StyledEditor proportionalLayout={false}>
                   <Allotment.Pane
