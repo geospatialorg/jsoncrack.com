@@ -3,6 +3,12 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 
+const nextConfig = {
+  output: "export",
+  basePath: "/editor",
+  trailingSlash: true,
+};
+
 /**
  * @type {import('next').NextConfig}
  */
