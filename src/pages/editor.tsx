@@ -10,15 +10,13 @@ import "allotment/dist/style.css";
 import { NextSeo } from "next-seo";
 import { SEO } from "../constants/seo";
 import { darkTheme, lightTheme } from "../constants/theme";
-//import { BottomBar } from "../features/editor/BottomBar";
 import { FullscreenDropzone } from "../features/editor/FullscreenDropzone";
-//import { Toolbar } from "../features/editor/Toolbar";
-import useGraph from "../features/editor/views/GraphView/stores/useGraph";
+import ModalController from "../features/modals/ModalController";
 import useConfig from "../store/useConfig";
 import useFile from "../store/useFile";
+import useFileStore from "../store/useFile";
 
-const ModalController = dynamic(() => import("../features/modals/ModalController"));
-//const ExternalMode = dynamic(() => import("../features/editor/ExternalMode"));
+// ✔️ import corect pt setFile
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -55,10 +53,6 @@ export const StyledEditor = styled(Allotment)`
   }
 `;
 
-//const TextEditor = dynamic(() => import("../features/editor/TextEditor"), {
-//  ssr: false,
-//});
-
 const LiveEditor = dynamic(() => import("../features/editor/LiveEditor"), {
   ssr: false,
 });
@@ -70,20 +64,16 @@ const EditorPage = () => {
   const { setColorScheme } = useMantineColorScheme();
   const checkEditorSession = useFile(state => state.checkEditorSession);
   const darkmodeEnabled = useConfig(state => state.darkmodeEnabled);
-  //const fullscreen = useGraph(state => state.fullscreen);
 
   useEffect(() => {
     if (isReady) {
-      // verifică existența sesiunii anterioare
-      checkEditorSession(query?.json);
-
-      // dacă avem parametru ?json=..., îl încărcăm explicit
       if (query?.json && typeof query.json === "string") {
         console.log("Am detectat URL JSON extern:", query.json);
+        const setFile = useFileStore.getState().setFile;
+
         fetch(query.json)
           .then(res => res.json())
           .then(data => {
-            const { setFile } = require("../store/useFile").default.getState();
             setFile({
               name: "imported.json",
               content: JSON.stringify(data, null, 2),
@@ -93,6 +83,8 @@ const EditorPage = () => {
           .catch(error => {
             console.error("Eroare la încărcarea fișierului JSON din URL:", error);
           });
+      } else {
+        checkEditorSession();
       }
     }
   }, [checkEditorSession, isReady, query]);
@@ -111,11 +103,9 @@ const EditorPage = () => {
       />
       <ThemeProvider theme={darkmodeEnabled ? darkTheme : lightTheme}>
         <QueryClientProvider client={queryClient}>
-          {/* <ExternalMode /> */}
           <ModalController />
           <StyledEditorWrapper>
             <StyledPageWrapper>
-              {/* <Toolbar /> */}
               <StyledEditorWrapper>
                 <StyledEditor proportionalLayout={false}>
                   <Allotment.Pane minSize={0}>
@@ -125,7 +115,6 @@ const EditorPage = () => {
                 <FullscreenDropzone />
               </StyledEditorWrapper>
             </StyledPageWrapper>
-            {/* <BottomBar /> */}
           </StyledEditorWrapper>
         </QueryClientProvider>
       </ThemeProvider>
