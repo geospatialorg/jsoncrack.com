@@ -109,7 +109,7 @@ const EditorPage = () => {
       />
       <ThemeProvider theme={darkmodeEnabled ? darkTheme : lightTheme}>
         <QueryClientProvider client={queryClient}>
-          <ExternalMode />
+          {/* <ExternalMode /> */}
           <ModalController />
           <StyledEditorWrapper>
             <StyledPageWrapper>
