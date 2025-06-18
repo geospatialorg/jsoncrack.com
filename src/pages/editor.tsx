@@ -77,7 +77,6 @@ const EditorPage = () => {
             setFile({
               name: "imported.json",
               content: JSON.stringify(data, null, 2),
-              type: "application/json",
             });
           })
           .catch(error => {
