@@ -3,7 +3,7 @@ import { persist } from "zustand/middleware";
 import useGraph from "../features/editor/views/GraphView/stores/useGraph";
 
 const initialStates = {
-  darkmodeEnabled: true,
+  darkmodeEnabled: false,
   collapseButtonVisible: true,
   childrenCountVisible: true,
   imagePreviewEnabled: true,
