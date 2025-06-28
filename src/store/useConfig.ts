@@ -9,7 +9,7 @@ const initialStates = {
   imagePreviewEnabled: true,
   liveTransformEnabled: true,
   gesturesEnabled: false,
-  rulersEnabled: true,
+  rulersEnabled: false,
 };
 
 export interface ConfigActions {
