@@ -20,6 +20,12 @@ const useJson = create<JsonStates & JsonActions>()((set, get) => ({
   setJson: json => {
     set({ json, loading: false });
     useGraph.getState().setGraph(json);
+    // Așteptăm ca DOM-ul să se finalizeze, apoi centram corect
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        useGraph.getState().centerView();
+      }, 100);
+    });
   },
   clear: () => {
     set({ json: "", loading: false });
