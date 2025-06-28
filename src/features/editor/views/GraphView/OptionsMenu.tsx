@@ -1,11 +1,11 @@
 import React from "react";
 import { ActionIcon, Button, Flex, Menu, Text } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
-import styled from "styled-components";
+// import styled from "styled-components";
 import { event as gaEvent } from "nextjs-google-analytics";
 import { BsCheck2 } from "react-icons/bs";
 import { LuChevronRight, LuImageDown, LuMenu } from "react-icons/lu";
-import { TiFlowMerge } from "react-icons/ti";
+// import { TiFlowMerge } from "react-icons/ti";
 import { VscExpandAll, VscCollapseAll } from "react-icons/vsc";
 import useToggleHide from "../../../../hooks/useToggleHide";
 import useConfig from "../../../../store/useConfig";
@@ -13,9 +13,9 @@ import { useModal } from "../../../../store/useModal";
 import type { LayoutDirection } from "../../../../types/graph";
 import useGraph from "./stores/useGraph";
 
-const StyledFlowIcon = styled(TiFlowMerge)<{ rotate: number }>`
-  transform: rotate(${({ rotate }) => `${rotate}deg`});
-`;
+// const StyledFlowIcon = styled(TiFlowMerge)<{ rotate: number }>`
+//   transform: rotate(${({ rotate }) => `${rotate}deg`});
+// `;
 
 const getNextDirection = (direction: LayoutDirection) => {
   if (direction === "RIGHT") return "DOWN";
@@ -24,12 +24,12 @@ const getNextDirection = (direction: LayoutDirection) => {
   return "RIGHT";
 };
 
-const rotateLayout = (direction: LayoutDirection) => {
-  if (direction === "LEFT") return 90;
-  if (direction === "UP") return 180;
-  if (direction === "RIGHT") return 270;
-  return 360;
-};
+// const rotateLayout = (direction: LayoutDirection) => {
+//   if (direction === "LEFT") return 90;
+//   if (direction === "UP") return 180;
+//   if (direction === "RIGHT") return 270;
+//   return 360;
+// };
 
 export const OptionsMenu = () => {
   const toggleGestures = useConfig(state => state.toggleGestures);
@@ -113,7 +113,7 @@ export const OptionsMenu = () => {
               </Text>
             </Flex>
           </Menu.Item>
-          <Menu.Item
+          {/* <Menu.Item
             fz={12}
             onClick={() => {
               toggleDirection();
@@ -128,7 +128,7 @@ export const OptionsMenu = () => {
             closeMenuOnClick={false}
           >
             Rotate Layout
-          </Menu.Item>
+          </Menu.Item> */}
           <Menu.Item
             fz={12}
             onClick={() => {
